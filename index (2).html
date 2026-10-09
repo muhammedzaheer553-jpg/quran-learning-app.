@@ -1,0 +1,1370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Quran Learning</title>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+font-family:Arial,Helvetica,sans-serif;
+background:linear-gradient(135deg,#eef8f1,#fffdf1);
+color:#063c36;min-height:100vh
+}
+button{font-family:inherit;cursor:pointer}
+.hidden{display:none!important}
+
+.page{max-width:1000px;margin:auto;padding:30px 20px 50px}
+
+.hero{
+background:linear-gradient(rgba(38,103,87,.90),rgba(60,126,107,.90)),
+radial-gradient(circle at 20% 20%,#d9eee5,transparent 30%);
+border-radius:30px;min-height:430px;display:flex;
+align-items:center;justify-content:center;text-align:center;
+color:white;padding:40px 20px;
+box-shadow:0 18px 40px rgba(25,80,65,.15)
+}
+.hero-icon{font-size:52px;margin-bottom:15px}
+.arabic-title{font-family:serif;font-size:42px;margin-bottom:12px}
+.hero h1{font-family:Georgia,serif;font-size:48px;margin-bottom:12px}
+.hero p{font-size:22px;letter-spacing:1px;margin-bottom:30px}
+
+.continue-btn{
+border:0;background:#f6c445;color:#063c36;padding:19px 38px;
+border-radius:40px;font-size:19px;font-weight:bold;
+box-shadow:0 8px 18px rgba(0,0,0,.12)
+}
+
+.cards{
+display:grid;grid-template-columns:repeat(4,1fr);
+gap:18px;margin-top:30px
+}
+.card{
+background:rgba(255,255,255,.96);border-radius:22px;
+min-height:185px;padding:28px 15px;text-align:center;
+box-shadow:0 8px 22px rgba(40,80,60,.12);
+transition:.2s
+}
+.card:hover{transform:translateY(-5px)}
+.card-icon{font-size:43px;margin-bottom:15px}
+.card h3{font-size:21px;margin-bottom:14px}
+.card p{color:#6d6d6d;font-size:16px}
+
+.screen{
+min-height:100vh;padding:80px 20px 50px;
+position:relative
+}
+
+.quran-bg{
+background:
+linear-gradient(rgba(238,248,241,.91),rgba(255,253,241,.94)),
+radial-gradient(circle at 10% 20%,rgba(65,130,105,.15),transparent 25%),
+radial-gradient(circle at 90% 75%,rgba(202,166,59,.13),transparent 25%)
+}
+
+.home-btn{
+position:fixed;top:15px;left:15px;z-index:1000;
+border:0;background:#f6c445;color:#063c36;
+padding:12px 20px;border-radius:25px;font-weight:bold;
+box-shadow:0 5px 15px rgba(0,0,0,.15)
+}
+
+.section-wrap{max-width:1000px;margin:auto}
+.section-title{text-align:center;font-family:Georgia,serif;font-size:38px;margin-bottom:10px}
+.section-subtitle{text-align:center;color:#666;margin-bottom:30px}
+
+.list{
+display:grid;grid-template-columns:repeat(3,1fr);gap:18px
+}
+.list-card{
+background:rgba(255,255,255,.95);border-radius:20px;
+padding:22px;box-shadow:0 7px 20px rgba(30,80,60,.12);
+cursor:pointer;transition:.2s
+}
+.list-card:hover{transform:translateY(-3px)}
+.list-card strong{font-size:20px}
+.list-card small{display:block;color:#777;margin-top:7px}
+
+.reader{max-width:900px;margin:auto}
+.reader-head{
+background:linear-gradient(rgba(34,91,75,.94),rgba(72,130,109,.94));
+color:white;padding:30px;border-radius:25px;text-align:center;
+margin-bottom:20px
+}
+.reader-head h2{font-family:Georgia,serif;font-size:34px}
+
+.ayah{
+background:rgba(255,255,255,.96);border-radius:20px;
+padding:25px;margin-bottom:15px;
+box-shadow:0 5px 17px rgba(30,80,60,.1)
+}
+.ayah-number{color:#4e8774;font-weight:bold;margin-bottom:12px}
+.arabic{
+direction:rtl;text-align:right;
+font-family:"Amiri","Times New Roman",serif;
+font-size:30px;line-height:2;margin-bottom:15px
+}
+.ayah-actions{display:flex;gap:10px;flex-wrap:wrap}
+.action-btn{
+border:0;padding:10px 17px;border-radius:20px;
+background:#e5f2eb;color:#125747;font-weight:bold
+}
+.action-btn.done{background:#ccebd6}
+
+.audio-main{
+width:100%;margin-top:15px
+}
+
+.practice-box{
+max-width:700px;margin:auto;background:white;border-radius:28px;
+padding:35px;text-align:center;
+box-shadow:0 10px 30px rgba(30,80,60,.13)
+}
+.mic{font-size:70px;margin:20px}
+.record-btn{
+border:0;width:90px;height:90px;border-radius:50%;
+background:#f6c445;font-size:35px;margin:20px
+}
+.practice-status{margin:15px 0;color:#666}
+
+.progress-box{
+max-width:750px;margin:auto;background:white;padding:30px;
+border-radius:25px;box-shadow:0 8px 25px rgba(30,80,60,.12)
+}
+.progress-bar{
+height:25px;background:#e3eee7;border-radius:20px;
+overflow:hidden;margin:20px 0
+}
+.progress-fill{
+height:100%;width:0%;background:#4d8b76;transition:.4s
+}
+.stats{
+display:grid;grid-template-columns:repeat(3,1fr);
+gap:15px;margin-top:25px
+}
+.stat{
+background:#f5faf6;padding:20px;border-radius:18px;text-align:center
+}
+.stat b{display:block;font-size:28px;color:#246b58}
+
+.certificate-box{
+max-width:850px;margin:auto;background:#fffdf0;
+border:8px double #caa63b;border-radius:20px;padding:40px;
+text-align:center;box-shadow:0 12px 35px rgba(50,80,50,.15)
+}
+.certificate-box h2{
+font-family:Georgia,serif;font-size:35px;color:#286b58;margin-bottom:15px
+}
+.certificate-item{
+background:white;padding:18px;border-radius:15px;margin:10px 0;
+display:flex;justify-content:space-between;align-items:center
+}
+.locked{opacity:.55}
+
+.setting{
+max-width:700px;margin:0 auto 14px;background:white;
+padding:22px;border-radius:18px;
+box-shadow:0 5px 15px rgba(30,80,60,.09)
+}
+.setting label{font-weight:bold;display:block;margin-bottom:10px}
+.setting select{
+padding:10px;border:1px solid #ddd;border-radius:10px
+}
+
+.toast{
+position:fixed;bottom:25px;left:50%;
+transform:translateX(-50%);background:#164f40;color:white;
+padding:13px 22px;border-radius:25px;display:none;z-index:2000
+}
+
+@media(max-width:800px){
+.cards{grid-template-columns:repeat(2,1fr)}
+.list{grid-template-columns:repeat(2,1fr)}
+.hero h1{font-size:38px}
+}
+@media(max-width:520px){
+.page{padding:15px 10px 30px}
+.hero{min-height:400px;border-radius:25px}
+.hero h1{font-size:32px}
+.arabic-title{font-size:32px}
+.hero p{font-size:17px}
+.cards{grid-template-columns:1fr 1fr;gap:12px}
+.card{min-height:165px;padding:20px 10px}
+.card h3{font-size:18px}
+.card p{font-size:14px}
+.list{grid-template-columns:1fr}
+.stats{grid-template-columns:1fr}
+.arabic{font-size:25px}
+}
+</style>
+</head>
+
+<body>
+
+<!-- ================= HOME ================= -->
+
+<div id="home" class="page">
+
+<section class="hero">
+<div>
+<div class="hero-icon">📖</div>
+<div class="arabic-title">القرآن الكريم</div>
+<h1>Quran Learning</h1>
+<p>Learn • Recite • Improve</p>
+
+<button class="continue-btn" onclick="openScreen('surahs')">
+📖 Continue Learning →
+</button>
+</div>
+</section>
+
+<div class="cards">
+
+<div class="card" onclick="openScreen('surahs')">
+<div class="card-icon">📖</div>
+<h3>Surahs</h3>
+<p>114 Surahs</p>
+</div>
+
+<div class="card" onclick="openScreen('juz')">
+<div class="card-icon">🕌</div>
+<h3>Juz</h3>
+<p>30 Juz</p>
+</div>
+
+<div class="card" onclick="openScreen('recitation')">
+<div class="card-icon">🎧</div>
+<h3>Recitation</h3>
+<p>Listen & Learn</p>
+</div>
+
+<div class="card" onclick="openScreen('practice')">
+<div class="card-icon">🎤</div>
+<h3>Practice</h3>
+<p>Speak & Improve</p>
+</div>
+
+<div class="card" onclick="openScreen('progress')">
+<div class="card-icon">📊</div>
+<h3>Progress</h3>
+<p>Track Your Journey</p>
+</div>
+
+<div class="card" onclick="openScreen('certificates')">
+<div class="card-icon">🏆</div>
+<h3>Certificates</h3>
+<p>Achieve & Share</p>
+</div>
+
+<div class="card" onclick="openScreen('streak')">
+<div class="card-icon">🔥</div>
+<h3>Daily Streak</h3>
+<p>Keep Going!</p>
+</div>
+
+<div class="card" onclick="openScreen('settings')">
+<div class="card-icon">⚙️</div>
+<h3>Settings</h3>
+<p>App Preferences</p>
+</div>
+
+</div>
+</div>
+
+
+<!-- ================= SURAHS ================= -->
+
+<div id="surahs" class="screen quran-bg hidden">
+
+<button class="home-btn" onclick="goHome()">⌂ Home</button>
+
+<div class="section-wrap">
+
+<h1 class="section-title">📖 Surahs</h1>
+<p class="section-subtitle">Explore all 114 Surahs of the Quran</p>
+
+<div id="surahList" class="list">
+<p style="grid-column:1/-1;text-align:center">Loading...</p>
+</div>
+
+</div>
+</div>
+
+
+<!-- ================= JUZ ================= -->
+
+<div id="juz" class="screen quran-bg hidden">
+
+<button class="home-btn" onclick="goHome()">⌂ Home</button>
+
+<div class="section-wrap">
+
+<h1 class="section-title">🕌 Juz</h1>
+<p class="section-subtitle">Explore all 30 Juz</p>
+
+<div id="juzList" class="list"></div>
+
+</div>
+</div>
+
+
+<!-- ================= READER ================= -->
+
+<div id="reader" class="screen quran-bg hidden">
+
+<button class="home-btn" onclick="goHome()">⌂ Home</button>
+
+<div class="reader">
+
+<div class="reader-head">
+<h2 id="readerTitle">Quran Reader</h2>
+<p id="readerSub"></p>
+</div>
+
+<div id="ayahContainer"></div>
+
+</div>
+</div>
+
+
+<!-- ================= RECITATION ================= -->
+
+<div id="recitation" class="screen quran-bg hidden">
+
+<button class="home-btn" onclick="goHome()">⌂ Home</button>
+
+<div class="section-wrap">
+
+<h1 class="section-title">🎧 Recitation</h1>
+<p class="section-subtitle">Listen and learn Quran recitation</p>
+
+<div class="practice-box">
+
+<div class="mic">🎧</div>
+
+<h2>Quran Recitation</h2>
+
+<p class="practice-status">
+Choose a Surah to listen to its complete recitation.
+</p>
+
+<button class="continue-btn" onclick="openScreen('surahs')">
+📖 Choose Surah
+</button>
+
+</div>
+</div>
+</div>
+
+
+<!-- ================= PRACTICE ================= -->
+
+<div id="practice" class="screen quran-bg hidden">
+
+<button class="home-btn" onclick="goHome()">⌂ Home</button>
+
+<div class="section-wrap">
+
+<h1 class="section-title">🎤 Practice</h1>
+<p class="section-subtitle">Speak • Practice • Improve</p>
+
+<div class="practice-box">
+
+<div class="mic">🎤</div>
+
+<h2>Voice Practice</h2>
+
+<p id="practiceStatus" class="practice-status">
+Press the button and start your recitation.
+</p>
+
+<button id="recordBtn" class="record-btn" onclick="toggleRecording()">
+🎤
+</button>
+
+<br>
+
+<button class="action-btn" onclick="startSpeechRecognition()">
+🗣️ Check Speech
+</button>
+
+<p id="speechResult" style="margin-top:20px;color:#555"></p>
+
+<audio id="recordedAudio" controls class="hidden"></audio>
+
+</div>
+</div>
+</div>
+
+
+<!-- ================= PROGRESS ================= -->
+
+<div id="progress" class="screen quran-bg hidden">
+
+<button class="home-btn" onclick="goHome()">⌂ Home</button>
+
+<div class="section-wrap">
+
+<h1 class="section-title">📊 Progress</h1>
+<p class="section-subtitle">Track your Quran learning journey</p>
+
+<div class="progress-box">
+
+<h2 id="progressText">0 / 6236 Ayahs</h2>
+
+<div class="progress-bar">
+<div id="progressFill" class="progress-fill"></div>
+</div>
+
+<p id="progressPercent">0% completed</p>
+
+<div class="stats">
+
+<div class="stat">
+<b id="completedAyahs">0</b>
+Ayahs Practiced
+</div>
+
+<div class="stat">
+<b id="streakNumber">0</b>
+Day Streak
+</div>
+
+<div class="stat">
+<b id="certificateCount">0</b>
+Certificates
+</div>
+
+</div>
+
+</div>
+</div>
+</div>
+
+
+<!-- ================= CERTIFICATES ================= -->
+
+<div id="certificates" class="screen quran-bg hidden">
+
+<button class="home-btn" onclick="goHome()">⌂ Home</button>
+
+<div class="section-wrap">
+
+<h1 class="section-title">🏆 Certificates</h1>
+<p class="section-subtitle">
+Complete every Ayah of a Surah or Juz to unlock achievements
+</p>
+
+<div class="certificate-box">
+
+<div style="font-size:65px">🏆</div>
+
+<h2>Quran Learning Achievements</h2>
+
+<p>Completed Surahs and Juz will appear here automatically.</p>
+
+<br>
+
+<div id="certificateList"></div>
+
+</div>
+</div>
+</div>
+
+
+<!-- ================= STREAK ================= -->
+
+<div id="streak" class="screen quran-bg hidden">
+
+<button class="home-btn" onclick="goHome()">⌂ Home</button>
+
+<div class="section-wrap">
+
+<h1 class="section-title">🔥 Daily Streak</h1>
+<p class="section-subtitle">Keep your Quran learning journey going!</p>
+
+<div class="practice-box">
+
+<div style="font-size:80px">🔥</div>
+
+<h2 id="streakBig">0 Days</h2>
+
+<p style="margin:20px;color:#666">
+Practice Quran every day to build your streak.
+</p>
+
+<button class="continue-btn" onclick="openScreen('practice')">
+🎤 Practice Today
+</button>
+
+</div>
+</div>
+</div>
+
+
+<!-- ================= SETTINGS ================= -->
+
+<div id="settings" class="screen quran-bg hidden">
+
+<button class="home-btn" onclick="goHome()">⌂ Home</button>
+
+<div class="section-wrap">
+
+<h1 class="section-title">⚙️ Settings</h1>
+<p class="section-subtitle">App Preferences</p>
+
+<div class="setting">
+
+<label>📖 Arabic Font Size</label>
+
+<select id="fontSize" onchange="changeFontSize()">
+<option value="25px">Small</option>
+<option value="30px" selected>Medium</option>
+<option value="36px">Large</option>
+<option value="42px">Extra Large</option>
+</select>
+
+</div>
+
+<div class="setting">
+
+<label>🎧 Reciter</label>
+
+<select>
+<option>Alafasy</option>
+</select>
+
+</div>
+
+<div class="setting">
+
+<label>🔥 Daily Streak</label>
+
+<p style="color:#666">
+Your streak is saved automatically on this device.
+</p>
+
+</div>
+
+<div class="setting">
+
+<label>💾 Learning Data</label>
+
+<button class="action-btn" onclick="resetProgress()">
+Reset Progress
+</button>
+
+</div>
+
+</div>
+</div>
+
+
+<div id="toast" class="toast"></div>
+
+
+<script>
+
+/* =====================================================
+   APP DATA
+===================================================== */
+
+const TOTAL_AYAHS = 6236;
+
+let practiced = JSON.parse(
+localStorage.getItem("quranPracticed") || "[]"
+);
+
+let streak = Number(
+localStorage.getItem("quranStreak") || 0
+);
+
+let lastPracticeDate =
+localStorage.getItem("lastPracticeDate") || "";
+
+let certificates = JSON.parse(
+localStorage.getItem("quranCertificates") || "[]"
+);
+
+
+/* =====================================================
+   NAVIGATION
+===================================================== */
+
+function openScreen(id){
+
+document.querySelectorAll(".page,.screen").forEach(x=>{
+x.classList.add("hidden");
+});
+
+document.getElementById(id).classList.remove("hidden");
+
+window.scrollTo(0,0);
+
+if(id==="surahs") loadSurahs();
+if(id==="juz") loadJuz();
+if(id==="progress") updateProgress();
+if(id==="certificates") updateCertificates();
+if(id==="streak") updateStreakScreen();
+
+}
+
+function goHome(){
+openScreen("home");
+}
+
+
+/* =====================================================
+   LOAD SURAHS
+===================================================== */
+
+async function loadSurahs(){
+
+const box=document.getElementById("surahList");
+
+if(box.dataset.loaded==="yes") return;
+
+box.innerHTML=
+"<p style='grid-column:1/-1;text-align:center'>Loading 114 Surahs...</p>";
+
+try{
+
+const res=await fetch(
+"https://api.alquran.cloud/v1/quran/quran-uthmani"
+);
+
+const data=await res.json();
+
+box.innerHTML="";
+
+data.data.surahs.forEach(surah=>{
+
+const card=document.createElement("div");
+
+card.className="list-card";
+
+card.innerHTML=`
+<strong>${surah.number}. ${surah.englishName}</strong>
+<small>${surah.name}</small>
+<small>${surah.numberOfAyahs} Ayahs</small>
+`;
+
+card.onclick=()=>openSurah(
+surah.number,
+surah.englishName,
+surah.name,
+surah.numberOfAyahs
+);
+
+box.appendChild(card);
+
+});
+
+box.dataset.loaded="yes";
+
+}catch(e){
+
+box.innerHTML=
+"<p style='grid-column:1/-1;text-align:center'>Internet connection required to load Quran.</p>";
+
+}
+
+}
+
+
+/* =====================================================
+   LOAD JUZ
+===================================================== */
+
+function loadJuz(){
+
+const box=document.getElementById("juzList");
+
+if(box.dataset.loaded==="yes") return;
+
+box.innerHTML="";
+
+for(let i=1;i<=30;i++){
+
+const card=document.createElement("div");
+
+card.className="list-card";
+
+card.innerHTML=`
+<strong>Juz ${i}</strong>
+<small>الجزء ${i}</small>
+<small>Open Juz →</small>
+`;
+
+card.onclick=()=>openJuz(i);
+
+box.appendChild(card);
+
+}
+
+box.dataset.loaded="yes";
+
+}
+
+
+/* =====================================================
+   OPEN SURAH
+===================================================== */
+
+async function openSurah(
+number,
+englishName,
+arabicName,
+ayahCount
+){
+
+openScreen("reader");
+
+document.getElementById("readerTitle").textContent=
+englishName;
+
+document.getElementById("readerSub").textContent=
+arabicName+" • Surah "+number;
+
+const box=document.getElementById("ayahContainer");
+
+box.innerHTML=
+"<p style='text-align:center'>Loading Surah...</p>";
+
+try{
+
+const res=await fetch(
+`https://api.alquran.cloud/v1/surah/${number}/quran-uthmani`
+);
+
+const data=await res.json();
+
+const ayahs=data.data.ayahs;
+
+box.innerHTML="";
+
+/* FULL SURAH AUDIO */
+
+const audioBox=document.createElement("div");
+
+audioBox.className="ayah";
+
+audioBox.innerHTML=`
+<h3>🎧 Complete Surah Recitation</h3>
+
+<audio class="audio-main" controls>
+<source
+src="https://cdn.islamic.network/quran/audio-surah/128/ar.alafasy/${number}.mp3"
+type="audio/mpeg">
+</audio>
+`;
+
+box.appendChild(audioBox);
+
+
+/* AYAH LIST */
+
+ayahs.forEach(ayah=>{
+
+const global=ayah.number;
+
+const item=document.createElement("div");
+
+item.className="ayah";
+
+const done=practiced.includes(global);
+
+item.innerHTML=`
+
+<div class="ayah-number">
+Ayah ${ayah.numberInSurah}
+</div>
+
+<div class="arabic">
+${ayah.text}
+</div>
+
+<div class="ayah-actions">
+
+<button class="action-btn"
+onclick="playAyah(${global})">
+▶ Listen
+</button>
+
+<button
+class="action-btn ${done?'done':''}"
+id="done-${global}"
+onclick="markPracticed(${global},${number},${ayahCount})">
+${done?'✓ Practiced':'✓ Mark Practiced'}
+</button>
+
+</div>
+
+`;
+
+box.appendChild(item);
+
+});
+
+}catch(e){
+
+box.innerHTML=
+"<p style='text-align:center'>Unable to load this Surah.</p>";
+
+}
+
+}
+
+
+/* =====================================================
+   OPEN JUZ
+===================================================== */
+
+async function openJuz(number){
+
+openScreen("reader");
+
+document.getElementById("readerTitle").textContent=
+"Juz "+number;
+
+document.getElementById("readerSub").textContent=
+"الجزء "+number;
+
+const box=document.getElementById("ayahContainer");
+
+box.innerHTML=
+"<p style='text-align:center'>Loading Juz...</p>";
+
+try{
+
+const res=await fetch(
+`https://api.alquran.cloud/v1/juz/${number}/quran-uthmani`
+);
+
+const data=await res.json();
+
+box.innerHTML="";
+
+data.data.ayahs.forEach(ayah=>{
+
+const global=ayah.number;
+
+const item=document.createElement("div");
+
+item.className="ayah";
+
+const done=practiced.includes(global);
+
+item.innerHTML=`
+
+<div class="ayah-number">
+${ayah.surah.name} • Ayah ${ayah.numberInSurah}
+</div>
+
+<div class="arabic">
+${ayah.text}
+</div>
+
+<div class="ayah-actions">
+
+<button class="action-btn"
+onclick="playAyah(${global})">
+▶ Listen
+</button>
+
+<button
+class="action-btn ${done?'done':''}"
+id="done-${global}"
+onclick="markPracticed(${global})">
+${done?'✓ Practiced':'✓ Mark Practiced'}
+</button>
+
+</div>
+
+`;
+
+box.appendChild(item);
+
+});
+
+}catch(e){
+
+box.innerHTML=
+"<p style='text-align:center'>Unable to load this Juz.</p>";
+
+}
+
+}
+
+
+/* =====================================================
+   AYAH AUDIO
+===================================================== */
+
+function playAyah(number){
+
+const audio=new Audio(
+`https://cdn.islamic.network/quran/audio/128/ar.alafasy/${number}.mp3`
+);
+
+audio.play().catch(()=>{
+showToast("Audio could not be played.");
+});
+
+}
+
+
+/* =====================================================
+   MARK PRACTICED
+===================================================== */
+
+function markPracticed(
+number,
+surahNumber=null,
+surahAyahCount=null
+){
+
+if(!practiced.includes(number)){
+
+practiced.push(number);
+
+localStorage.setItem(
+"quranPracticed",
+JSON.stringify(practiced)
+);
+
+updateStreak();
+
+showToast("✓ Ayah practiced!");
+
+}
+
+const btn=document.getElementById("done-"+number);
+
+if(btn){
+
+btn.textContent="✓ Practiced";
+btn.classList.add("done");
+
+}
+
+checkSurahCompletion();
+
+updateProgress();
+
+}
+
+
+/* =====================================================
+   CHECK SURAH COMPLETION
+===================================================== */
+
+async function checkSurahCompletion(){
+
+try{
+
+const res=await fetch(
+"https://api.alquran.cloud/v1/quran/quran-uthmani"
+);
+
+const data=await res.json();
+
+data.data.surahs.forEach(surah=>{
+
+const allDone=surah.ayahs.every(
+ayah=>practiced.includes(ayah.number)
+);
+
+if(allDone){
+
+const id="surah-"+surah.number;
+
+if(!certificates.includes(id)){
+
+certificates.push(id);
+
+showToast(
+"🏆 Certificate unlocked: "+surah.englishName
+);
+
+}
+
+}
+
+});
+
+localStorage.setItem(
+"quranCertificates",
+JSON.stringify(certificates)
+);
+
+}catch(e){}
+
+}
+
+
+/* =====================================================
+   PROGRESS
+===================================================== */
+
+function updateProgress(){
+
+const count=practiced.length;
+
+const percent=
+Math.min(100,(count/TOTAL_AYAHS)*100);
+
+document.getElementById("progressText").textContent=
+`${count} / ${TOTAL_AYAHS} Ayahs`;
+
+document.getElementById("progressFill").style.width=
+percent+"%";
+
+document.getElementById("progressPercent").textContent=
+percent.toFixed(1)+"% completed";
+
+document.getElementById("completedAyahs").textContent=
+count;
+
+document.getElementById("streakNumber").textContent=
+streak;
+
+document.getElementById("certificateCount").textContent=
+certificates.length;
+
+}
+
+
+/* =====================================================
+   STREAK
+===================================================== */
+
+function updateStreak(){
+
+const today=
+new Date().toISOString().slice(0,10);
+
+if(lastPracticeDate===today)return;
+
+if(!lastPracticeDate){
+
+streak=1;
+
+}else{
+
+const old=new Date(lastPracticeDate);
+const now=new Date(today);
+
+const days=
+Math.round((now-old)/(1000*60*60*24));
+
+if(days===1){
+
+streak++;
+
+}else if(days>1){
+
+streak=1;
+
+}
+
+}
+
+lastPracticeDate=today;
+
+localStorage.setItem(
+"quranStreak",
+streak
+);
+
+localStorage.setItem(
+"lastPracticeDate",
+lastPracticeDate
+);
+
+}
+
+
+function updateStreakScreen(){
+
+document.getElementById("streakBig").textContent=
+streak+" Day"+(streak===1?"":"s");
+
+}
+
+
+/* =====================================================
+   CERTIFICATES
+===================================================== */
+
+function updateCertificates(){
+
+const box=
+document.getElementById("certificateList");
+
+if(certificates.length===0){
+
+box.innerHTML=`
+
+<div class="certificate-item locked">
+<span>🔒 No certificates yet</span>
+<span>Keep Learning!</span>
+</div>
+
+`;
+
+return;
+
+}
+
+box.innerHTML="";
+
+certificates.forEach(id=>{
+
+let text=id;
+
+if(id.startsWith("surah-")){
+
+text="Surah "+id.replace("surah-","");
+
+}
+
+const item=document.createElement("div");
+
+item.className="certificate-item";
+
+item.innerHTML=`
+
+<strong>🏆 ${text}</strong>
+
+<span>✓ Completed</span>
+
+`;
+
+box.appendChild(item);
+
+});
+
+}
+
+
+/* =====================================================
+   RECORDING
+===================================================== */
+
+let recorder=null;
+let chunks=[];
+let recording=false;
+
+async function toggleRecording(){
+
+if(recording){
+
+recorder.stop();
+recording=false;
+
+document.getElementById("recordBtn").textContent="🎤";
+
+document.getElementById("practiceStatus").textContent=
+"Recording stopped.";
+
+return;
+
+}
+
+try{
+
+const stream=
+await navigator.mediaDevices.getUserMedia({
+audio:true
+});
+
+chunks=[];
+
+recorder=new MediaRecorder(stream);
+
+recorder.ondataavailable=e=>{
+chunks.push(e.data);
+};
+
+recorder.onstop=()=>{
+
+const blob=
+new Blob(chunks,{type:"audio/webm"});
+
+const url=
+URL.createObjectURL(blob);
+
+const audio=
+document.getElementById("recordedAudio");
+
+audio.src=url;
+audio.classList.remove("hidden");
+
+stream.getTracks().forEach(
+track=>track.stop()
+);
+
+};
+
+recorder.start();
+
+recording=true;
+
+document.getElementById("recordBtn").textContent="⏹️";
+
+document.getElementById("practiceStatus").textContent=
+"🔴 Recording... Recite now.";
+
+}catch(e){
+
+document.getElementById("practiceStatus").textContent=
+"Microphone permission is required.";
+
+}
+
+}
+
+
+/* =====================================================
+   SPEECH RECOGNITION
+===================================================== */
+
+function startSpeechRecognition(){
+
+const SpeechRecognition=
+window.SpeechRecognition ||
+window.webkitSpeechRecognition;
+
+if(!SpeechRecognition){
+
+document.getElementById("speechResult").textContent=
+"Speech recognition is not supported here.";
+
+return;
+
+}
+
+const recognition=
+new SpeechRecognition();
+
+recognition.lang="ar-SA";
+recognition.continuous=false;
+recognition.interimResults=false;
+
+document.getElementById("speechResult").textContent=
+"🎧 Listening...";
+
+recognition.start();
+
+recognition.onresult=e=>{
+
+const text=
+e.results[0][0].transcript;
+
+document.getElementById("speechResult").textContent=
+"You said: "+text;
+
+};
+
+recognition.onerror=()=>{
+
+document.getElementById("speechResult").textContent=
+"Could not understand the recitation.";
+
+};
+
+}
+
+
+/* =====================================================
+   SETTINGS
+===================================================== */
+
+function changeFontSize(){
+
+const size=
+document.getElementById("fontSize").value;
+
+document.querySelectorAll(".arabic").forEach(
+x=>x.style.fontSize=size
+);
+
+localStorage.setItem(
+"quranFontSize",
+size
+);
+
+showToast("✓ Font size changed");
+
+}
+
+
+/* =====================================================
+   RESET
+===================================================== */
+
+function resetProgress(){
+
+if(!confirm(
+"Are you sure you want to reset all learning progress?"
+))return;
+
+localStorage.removeItem("quranPracticed");
+localStorage.removeItem("quranStreak");
+localStorage.removeItem("lastPracticeDate");
+localStorage.removeItem("quranCertificates");
+
+practiced=[];
+streak=0;
+lastPracticeDate="";
+certificates=[];
+
+updateProgress();
+updateCertificates();
+updateStreakScreen();
+
+showToast("Progress reset.");
+
+}
+
+
+/* =====================================================
+   TOAST
+===================================================== */
+
+function showToast(message){
+
+const t=document.getElementById("toast");
+
+t.textContent=message;
+t.style.display="block";
+
+setTimeout(()=>{
+t.style.display="none";
+},2500);
+
+}
+
+
+/* =====================================================
+   START
+===================================================== */
+
+const savedFont=
+localStorage.getItem("quranFontSize");
+
+if(savedFont){
+
+document.getElementById("fontSize").value=
+savedFont;
+
+}
+
+openScreen("home");
+
+</script>
+
+</body>
+</html>
